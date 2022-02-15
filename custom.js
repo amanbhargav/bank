@@ -1,10 +1,6 @@
 var users = [];
 var trns = [];
 
-$(document).on("click", ".view-data", function(){
-	var id = $(this).data('id');
-	viewTrans(id)
-})
 
 function clearFields(){
 	$("#pin").val("");
@@ -12,6 +8,12 @@ function clearFields(){
 	$("#name").val("");
 }
 
+function clear(){
+	$("#sender").val("");
+	$("#receiver").val("");
+	$("#amount").val("");
+	$("#payment-pin").val("");
+}
 // function uniqUser(){
 // 	if(($("#name").val() == $('#sender').val())){
 // 		return ;
@@ -21,11 +23,12 @@ function clearFields(){
 // 	}
 // }
 
-function makeUser(name, pin, balance){
+function makeUser(name, pin, accNo, balance){
 	return {
 		"id": (users.length + 1),
 		"name": name,
 		"pin": pin,
+		"accNo": accNo,
 		"balance": Number(balance)
 	};
 }
@@ -38,6 +41,7 @@ function showUser(user){
       <th scope="row">${user.id}</th>
       <td>${user.name}</td>
       <td>${user.balance}</td>
+      <td>${user.accNo}</td>
       <td><button type="button" class="btn btn-primary view-data" data-id=${user.id} data-toggle="modal" data-target="#exampleModalCenter">View</button></td>
   	</tr>
   `)
@@ -48,21 +52,23 @@ function viewTrans(id){
 		return u.id === id ;
 	})
 	var transctions =  trns.filter(function(item){
-	   
-    return item.id === user.id;
+    return (item.sender == user.id || item.reciever == user.id);
 	})
 	$(".trns-table").html("");
+	console.log(transctions);
 	transctions.forEach(function(trn){
 		$(".trns-table").append(`
 		<tr data-tran-id=${trn.id}>
 	      <th scope="row">${trn.id}</th>
-	      <td>${trn.sender}</td>
-	      <td>${trn.reciever}</td>
+	      <td>${getName(trn.sender)}</td>
+	      <td>${getName(trn.reciever)}</td>
 	      <td>${trn.amount}</td>
     	</tr>
     `)
 	})
 }
+
+
 
 
 function checkPin(){
@@ -85,16 +91,14 @@ function valildateUser(user){
 	}
 }
 
-function getUser(name){
+function getUser(accNo){
 	var user;
-	users.forEach(function(item){
-		if(item.name == name){
-			user = item;
-		}
-	})
-	return user;
+	return users.find((u) => u.accNo == accNo)
 }
 
+function getName(id){
+	return users.find((usr) => usr.id == id).name;
+}
 
 function validatePayment(user, pin, amount){
 	if(user.pin == pin){
@@ -114,6 +118,7 @@ function updateInfo(user){
 	      <th scope="row">${user.id}</th>
 	      <td>${user.name}</td>
 	      <td>${user.balance}</td>
+	      <td>${user.accNo}</td>
 	      <td><button type="button" class="btn btn-primary view-data" data-id=${user.id} data-toggle="modal" data-target="#exampleModalCenter">View</button></td>
     `)
 }
@@ -121,18 +126,24 @@ function updateInfo(user){
 function updateTransaction(sender, reciever, amount){
 	var trn = {
 		"id": trns.length+1,
-		"sender": sender.name,
-		"reciever": reciever.name,
+		"sender": sender.id,
+		"reciever": reciever.id,
 		"amount": amount
 	}
 	trns.push(trn);
 }
 
+function getAccno(){
+    return Math.floor((Math.random()*100000)+1) + 600000;
+}
+
+// event handler
 
 $("#submit").click(function(){
 	var name = $("#name").val();
 	var pin = $("#pin").val();
-	var user = makeUser(name, pin, 1000);
+	var accNo = getAccno();
+	var user = makeUser(name, pin, accNo, 1000);
 	if(valildateUser(user)){
 		users.push(user);
 		showUser(user);	
@@ -153,10 +164,34 @@ $("#make_transaction").click(function(){
 			updateInfo(sender);
 			updateInfo(reciever);
 			updateTransaction(sender, reciever, amount);
+			clear();
 		}
 	} else{
 	  	alert("invalid sender or reciever!!")
+	  	clear();
 	}
 })
 
+$(document).on("click", ".view-data", function(){
+	var id = $(this).data('id');
+	viewTrans(id)
+})
 
+
+
+
+
+//populate
+
+names = [["aman", "1111"], ["aman", "2222"]];
+function fill(name, pin){
+	$("#name").val(name)
+	$("#pin").val(pin)
+	$("#pin-confirm").val(pin)
+}
+function populate(){
+	names.forEach(function(val){
+		fill(val[0], val[1]);
+		$("#submit").click();
+	})
+}
