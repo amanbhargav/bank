@@ -7,24 +7,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script4src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <style type="text/css">
-      .table-container{
-        height: 300px;
-        overflow: auto;
-      }
-      .hide-table{
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./css/css.css">
   </head>
   <body>
-    <div class="container mt-3">
+    <div class="bg-img">
+    </div>
+    <div class="mainDiv container  mt-3">
       <div class="row">
         <div class="col">
-          <div class="uinput">
-            <form class="border p-3 row">
+          <div class="uinput hide-inpute">
+            <form class="border p-3 w-85 row">
+              <legend>Register</legend>
               <div class="form-group mt-1">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter your name" pattern="[A-Za-z]" autofocus>
@@ -40,16 +35,16 @@
               <button type="button" class="btn btn-primary mt-2 col-4 offset-4" id='submit'>Submit</button>
             </form>
           </div>
-          <div class="uinput">
-            <form class="border p-3 row m">
+          <div class="uinput  hide-uinput">
+            <form class="border p-2 w-85 row m">
               <legend>Transaction</legend>
               <div class="form-group mt-1 col-md-6">
-                <label for="name">Sender name</label>
-                <input type="text" class="form-control" id="sender" placeholder="Enter sender acc no" pattern="[A-Za-z]">
+                <label for="name">Sender Acc no.</label>
+                <input type="text" class="form-control" id="sender" placeholder="Enter Sender acc no." pattern="[A-Za-z]">
               </div>
               <div class="form-group mt-1 col-md-6">
-                <label for="name">Reciever name</label>
-                <input type="text" class="form-control" id="receiver" placeholder="Enter Reciever acc no" pattern="[A-Za-z]">
+                <label for="name">Reciever Acc no.</label>
+                <input type="text" class="form-control" id="receiver" placeholder="Enter Reciever acc no." pattern="[A-Za-z]">
               </div>
               <div class="form-group mt-3">
                 <label for="amount">Amount</label>
@@ -62,17 +57,56 @@
               <button type="button" class="btn btn-primary mt-2 col-4 offset-4" id='make_transaction' data-toggle="modal" data-target="#exampleModal" >Send</button>
             </form>
           </div>
+          <div class="withdrawa hide-withdrawa">
+            <form class="border p-2 w-85 row m">
+              <legend>Withdrawa</legend>
+              <div class="form-group mt-2">
+                <label for="formGroupExampleInput">Acc no.</label>
+                <input type="number" class="form-control" id="withdrawa_acc" placeholder="Enter your Acc np.">
+              </div>
+              <div class="form-group mt-2">
+                <label for="formGroupExampleInput2">Amount</label>
+                <input type="number" class="form-control" id="withdrawa_amount" placeholder="Enter amount">
+              </div>
+              <div class="form-group mt-2">
+                <label for="formGroupExampleInput2">PIN</label>
+                <input type="password" class="form-control" id="withdrawa_pin" maxlength="4" minlength="4" placeholder="Enter your pin">
+              </div>
+              <button type="button" class="btn btn-primary mt-2 col-4 offset-3" id='make_withdrawa'>Withdrawa
+              </button>
+            </form>
+          </div>
+          <div class="deposit hide-deposit">
+            <form class="border mt-2  p-2 w-85 row m">
+              <legend>Deposit</legend>
+              <div class="form-group mt-2">
+                <label for="formGroupExampleInput2">To</label>
+                <input type="number" class="form-control" id="deposit_acc" placeholder="Enter Acc no. ">
+              </div>
+              <div class="form-group mt-2">
+                <label for="formGroupExampleInput2">Amount</label>
+                <input type="number" class="form-control" id="deposit_amount" placeholder="Amount">
+              </div>
+              <button type="button" class="btn btn-primary mt-2 col-4 offset-3" id='make_deposit' data-toggle="modal" data-target="#exampleModal" >Deposit
+              </button>
+            </form>
+          </div> 
+        <!-- </div>
         </div>
+        </div> -->
+        </div>
+
+        
         <div class="col">
-          <div class="table-container">
-            <table class="table table-hover table-bordered user-main-table">
+          <div class="table-container ">
+            <table class="table table-bordered user-main-table table-hide">
               <thead>
                 <tr>
                   <th>Sr No.</th>
                   <th>Name</th>
                   <th>Amount (Rs)</th>
-                  <th>Acc no</th>
-                  <th>Action</th>
+                  <th>Acc no.</th>
+                  <th>view</th>
                 </tr>
               </thead>
               <tbody class='user-table'>
@@ -81,14 +115,15 @@
           </div>
 
           <div class="table-container hide-table ">
-            <table class="table table-hover table-bordered trns-main-table">
+            <table class="table table-bordered trns-main-table p-1">
               <thead>
                 <tr>
                   <th>Sr No.</th>
                   <th>Sender</th>
                   <th>Reciever</th>
-                  <th>Amount(Rs)</th>
-
+                  <th>Amount(Rs)</th><!-- 
+                  <th>deposit(Rs)</th>
+                  <th>Withdrawa(Rs)</th> -->
                 </tr>
               </thead>
               <tbody class='trns-table'>
@@ -100,7 +135,7 @@
       </div>
       <!-- Button trigger modal -->
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade  " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -109,14 +144,16 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-                <table class="table table-hover table-bordered trns-main-table">
+              <div class="modal-body ">
+                <table class="table table-bordered trns-main-table">
                     <thead>
                       <tr>
                         <th>Sr No.</th>
                         <th>Sender</th>
                         <th>Reciever</th>
-                        <th>Amount(Rs)</th>
+                        <th>Amount(Rs)</th><!-- 
+                        <th>deposit(Rs)</th>
+                        <th>Withdrawa(Rs)</th> -->
                       </tr>
                     </thead>
                     <tbody class='trns-table'>
@@ -129,6 +166,15 @@
             </div>
           </div>
         </div>
-    <script type="text/javascript" src="./custom.js"></script>
+        
+
+        <div class="btn-group-vertical btn-block  btn-border " role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary" id="btn-register">Register</button>
+          <button type="button" class="btn btn-secondary " id="btn-transaction">Transaction</button>
+          <button type="button" class="btn btn-secondary" id="btn-deposit">Deposit</button>
+          <button type="button" class="btn btn-secondary" id = "btn-withdrawa">Withdrawa</button>
+        </div>
+                
+    <script type="text/javascript" src="./js/custom.js"></script>
   </body>
 </html>

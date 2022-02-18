@@ -1,0 +1,73 @@
+body{
+  background-image: url("./../images/piggy-bank.jpg");
+  /*background-size: 1370px  660px;*/
+  background-repeat: no-repeat ;
+  background-size: cover;
+  height: 100vh;
+
+}
+
+      
+.table-container{
+  height: 300px;
+  overflow: auto;
+}
+
+
+.table-hide{
+  display: none;
+}
+
+
+.uinput{
+  margin-left: 200px;
+}
+
+.hide-table {
+  display: none;
+}
+
+.hide-inpute{
+  display: none;
+}
+
+.hide-uinput{
+  display: none;
+}
+
+.hide-withdrawa{
+
+  margin-left: 200px;
+  display: none;
+}
+
+.btn-group-vertical{
+  width: 13rem;
+  margin-left: 40px;
+  margin-top: -400px ;
+}
+
+.hide-deposit{
+  margin-left: 200px;
+  display: none;
+}
+
+.btn-secondary{
+  background-color: dodgerblue;
+}
+
+.btn-secondary:hover{
+  background-color: blue;
+}
+
+.modal-dialog{
+  width: 150rem;
+}
+
+  .table-hide{
+    color: white;
+  }
+
+  .mainDiv{
+    color: white;
+  }
